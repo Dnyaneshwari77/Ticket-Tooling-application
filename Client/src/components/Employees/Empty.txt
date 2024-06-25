@@ -1,0 +1,101 @@
+import React, { useEffect,useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllTicketsOfEmployee } from "../../features/ticket/ticketAction";
+import Ticket from "./Ticket";
+import TicketDetail from "./TicketDetail";
+import { motion } from "framer-motion";
+import FilterComponent from "../common/FilterComponent";
+import { Box } from "@chakra-ui/react";
+import{getFilterTickets} from "../../features/ticket/ticketAction"
+
+
+// List All Ticket Assigned to Employee
+export default function AssignTicketList() {
+  const dispatch = useDispatch();
+  const [selectedTicket, setSelectedTicket] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+
+  const currentUserTicketChange=useSelector(state=>state.ticket.currentTickets);
+  const fillterTickets=useSelector((state)=>state.ticket.filterTickets);
+
+
+  const loadFillterTickets=()=>
+    {
+      dispatch(getFilterTickets({status:"all"}))
+    }
+
+  useEffect(() => {
+    loadFillterTickets();
+  }, [dispatch,currentUserTicketChange]);
+  
+  
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedTicket(null);
+  };
+
+  const handleTokenClick = (ticket) => {
+    console.log("Tocken clicked")
+    setSelectedTicket(ticket);
+    setIsModalOpen(true);
+  };
+
+  const container = {
+    hidden: { opacity: 1, scale: 0 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        delayChildren: 0.3,
+        staggerChildren: 0.2
+      }
+    }
+  };
+  
+  const item = {
+    hidden: { y: 20, opacity: 0 },
+    visible: { y: 0, opacity: 1 }
+  };
+  
+
+  return (
+    
+   <Box width={"100%"}>
+   <FilterComponent/>
+     <motion.div
+        variants={container}
+        initial="hidden"
+        animate="visible"
+        style={{width:"100%",display:"flex",justifyContent:"center",alignItems:"center", flexDirection:"column"}}
+       
+      >
+   
+      {fillterTickets && fillterTickets.length > 0 ? (
+        fillterTickets.map((ticket) => (
+          <motion.div variants={item} key={ticket._id} style={{width:"100%",display:"flex",alignItems:"center",justifyContent:"center"}} >
+          <Ticket
+            key={ticket._id}
+            ticket={ticket}
+            onClick={() => handleTokenClick(ticket)}
+          
+          />
+            </motion.div>
+        ))
+      ) : (
+        <div>No tickets available</div>
+      )}
+      {selectedTicket && (
+        // Detail Explaination of Ticket 
+        <TicketDetail
+          isOpen={isModalOpen}
+          onClose={closeModal}
+          ticket={selectedTicket}
+        />
+      )}
+
+    </motion.div>
+   </Box>
+
+  );
+}

@@ -1,0 +1,82 @@
+*
+{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+
+/* NavBar CSS */
+
+.hedding
+{
+    border:"3px" solid white ;
+    
+}
+
+
+/* For Main landing page */
+
+.mainConatiner
+{
+    background-color: "#240750";
+}
+
+/* For Registartion form */
+.registration_form
+{
+    width: 50%;
+    min-width: 300px;
+    padding: 23px;
+    background-color: aliceblue;
+}
+
+
+/* For form input extra css */
+.input
+{
+    border: none;
+    padding: 15px;
+    font-size: 16px;
+    border-radius: 5px;
+}
+.input:focus
+{
+    border: none;
+    background-color: white;
+    border: none;
+    outline: 2px solid #edf1f1; /* teal.500 */
+}
+
+
+/* Just a box shadow  */
+
+.ticketSummary
+{
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.card
+{
+    box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+}
+
+.employeeCard
+{
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.glass-effect {
+    background: rgba(255, 255, 255, 0.1); /* Adjust opacity to control the glass effect */
+    backdrop-filter: blur(10px); /* Adjust blur radius for the glass effect */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+    padding: 20px; /* Add padding for content */
+  }
+
+  .icon
+  {
+    position: absolute;
+    top: 10;
+    left: 20;
+  }
